@@ -1,0 +1,36 @@
+module TypeClassExample where
+
+import Daml.Script 
+data PersonalRecord = PersonalRecord with
+    name: Text
+    id: Int
+     deriving (Eq, Show, Ord)
+
+testTypeClass: Script ()
+testTypeClass = script do
+
+    let 
+        someData = PersonalRecord with
+            name = "Alice"
+            id = 123
+            
+    debug $ show someData
+
+    let 
+        someOtherData = PersonalRecord with
+            name = "Bob"
+            id = 456
+
+    debug $ show someOtherData
+
+    debug $ someData == someOtherData
+    
+data Data_type = Data_type with
+    field_name_1: Text
+    field_name_2: Int
+    field_name_3: Bool
+
+
+
+
+

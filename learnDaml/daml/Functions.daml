@@ -1,0 +1,18 @@
+module Functions where 
+import Daml.Script
+
+increment: Int -> Int
+increment n = n + 1
+
+add: Int -> Int -> Int
+add x y = x + y
+
+mult: Int -> Int -> Int -> Int
+mult x y z = x * y * z
+
+testFunctions: Script ()
+testFunctions = script do
+    debug $ increment 3
+    debug (increment 4)
+    debug $ add 3 5
+    debug $ mult 2 3 4

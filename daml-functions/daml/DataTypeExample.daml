@@ -1,0 +1,46 @@
+module DataTypeExample where
+import Daml.Script
+import DA.Date
+import DA.Time
+
+datatype_test : Script ()
+datatype_test = script do
+
+    now1 <- getTime
+    debug $ "Current time: " <> show now1
+    let
+        amount: Decimal 
+        amount = 10.2221289998
+
+    let big_amount: BigNumeric
+        big_amount = 123.4 * 1e34 *1e32
+
+    let word: Text
+        word = "Hello, Daml!"
+
+    let bool_value: Bool
+        bool_value = True
+
+    let dateOfBirth: Date
+        dateOfBirth = date 2024 Jan 1
+
+    let timeOfBirth: Time
+        timeOfBirth = time (date 2024 Jan 1) 14 20 05
+
+    let real_time: RelTime
+        real_time = seconds 1
+    
+        age1: RelTime
+        age1 = subTime now1 timeOfBirth
+
+    debug $ amount
+    debug $ big_amount
+    debug $ word
+    debug $ bool_value
+    debug $ dateOfBirth
+    debug $ timeOfBirth
+    debug $ real_time
+    debug $ age1
+
+    return ()
+

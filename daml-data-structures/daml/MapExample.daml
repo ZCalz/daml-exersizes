@@ -1,0 +1,43 @@
+module MapExample where
+
+import Daml.Script
+import DA.Map as Map
+
+mapTests : Script ()
+mapTests = script do
+
+    let 
+        wordMap : Map Text Text
+        wordMap = Map.empty
+    
+    let
+        words = [("a","apple"), ("b", "banana"), ("c", "cherry")]
+        wordMap = Map.fromList words
+
+    debug $ show wordMap
+    debug $ Map.size wordMap
+    debug $ Map.lookup "a" wordMap
+    debug $ Map.lookup "c" wordMap
+    debug $ Map.lookup "d" wordMap
+    debug $ "----------------------------"
+
+    let newWordMap = Map.insert "d" "date" wordMap
+    debug $ show newWordMap
+    debug $ Map.size newWordMap
+    -- let
+    --     emptyMap: Map Text Int
+    --     emptyMap = Map.empty
+
+    -- let fruitList = [("apple", 1), ("banana", 2), ("orange", 3)]
+    -- let fruitMap = Map.fromList fruitList
+
+    -- debug $ Map.size fruitMap
+    -- debug $ show fruitMap
+    -- debug $ Map.lookup "banana" fruitMap
+    -- debug $ Map.lookup "grape" fruitMap
+    -- debug $ "----------------------------"
+
+    -- let newFruitMap = Map.insert "grape" 4 fruitMap
+    -- debug $ Map.size newFruitMap
+    -- debug $ show newFruitMap
+    -- debug $ Map.lookup "grape" newFruitMap

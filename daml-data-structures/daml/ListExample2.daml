@@ -1,0 +1,24 @@
+module ListExample2 where
+
+import Daml.Script
+import DA.List
+
+listTest2 : Script () 
+listTest2 = script do
+    let
+        intList = [1,2,3,4]
+        fruitList = ["orange", "apple", "banana"]
+        veggieList = ["carrot", "broccoli", "spinach"]
+
+        rangeList = [10..20]
+        evenList = [2,4 .. 20]
+
+        fruitAndVeggieList  fruitList <> veggieList
+
+    debug $ "Range: " <> show rangeList
+    debug $ "Even: " <> show evenList
+    debug $ "Prepend: " <> show ("mango" : fruitList)
+    debug $ "Append: " <> show (fruitList <> ["grape"])
+
+debug $ fruitAndVeggieList
+

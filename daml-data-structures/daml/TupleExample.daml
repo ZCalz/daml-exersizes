@@ -1,0 +1,28 @@
+module TupleExample where
+
+import Daml.Script
+import DA.Tuple (thd3, snd3, fst3)
+
+tupleTests : Script ()
+tupleTests = script do
+    let
+        twoTuble = ("abc", 123)
+        threeTuple = ("a", 456, True)
+        nTuple = ("x", 789, False, [3,4])
+
+    debug $ fst twoTuble
+    debug $ snd twoTuble
+    debug $ fst3 threeTuple
+    debug $ snd3 threeTuple
+    debug $ thd3 threeTuple
+    -- debug $ fst3 nTuple
+    -- debug $ snd3 nTuple
+    -- debug $ thd3 nTuple
+
+    debug $ "Two Tuple: " <> show twoTuble
+    debug $ "Three Tuple: " <> show threeTuple
+    debug $ "N Tuple: " <> show nTuple
+
+    debug $ nTuple._1
+    debug $ nTuple._2
+    debug $ nTuple._4

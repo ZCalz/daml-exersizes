@@ -1,0 +1,24 @@
+module SetExample where
+
+import Daml.Script
+import DA.Set as Set
+
+setTests : Script ()
+setTests = script do
+    let 
+        fruitSet: Set Text
+        fruitSet = Set.empty
+
+    let fruitList = ["apple", "banana", "orange", "apple"]
+    let fruitSet = Set.fromList fruitList
+
+    debug $ Set.size fruitSet
+    debug $ show fruitSet
+    debug $ Set.member "banana" fruitSet
+    debug $ Set.member "grape" fruitSet
+    debug $ "----------------------------"
+
+    let newFruitSet = Set.insert "grape" fruitSet
+    debug $ Set.size newFruitSet
+    debug $ show newFruitSet
+    debug $ Set.member "grape" newFruitSet

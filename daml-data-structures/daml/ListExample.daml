@@ -1,0 +1,33 @@
+module ListExample where
+
+import Daml.Script
+-- import DA.List (head, tail)
+import DA.List
+
+listTests : Script ()
+listTests = script do
+    let
+        intList = [1,2,3,4]
+        fruitList = ["orange", "apple", "banana"]
+
+    debug $ "Head: " <> show (head intList)
+    debug $ "Tail: " <> show (tail intList)
+    debug $ "Head: " <> show (head fruitList)
+    debug $ "Tail: " <> show (tail fruitList)
+    debug $ "Length: " <> show (length intList)
+    debug $ "Length: " <> show (length fruitList)   
+    debug $ "IsEmpty: " <> show (null intList)
+    debug $ "IsEmpty: " <> show (null fruitList)    
+    debug $ "Reverse: " <> show (reverse intList)
+    debug $ "Reverse: " <> show (reverse fruitList)
+    debug $ "Sort: " <> show (sort intList)
+    debug $ "Sort: " <> show (sort fruitList)
+    debug $ "Map: " <> show (map (\x -> x * 2) intList) 
+    debug $ "Map: " <> show (map (\x -> x <> "!") fruitList)
+    -- debug $ "Filter: " <> show (filter (\x -> x `mod` 2 == 0) intList)
+    debug $ "Filter: " <> show (filter (\x -> x == "apple")
+        fruitList)  
+    debug $ "Take: " <> show (take 2 intList)
+    debug $ "Take: " <> show (take 2 fruitList)
+    debug $ "Drop: " <> show (drop 2 intList)
+    debug $ "Drop: " <> show (drop 2 fruitList)
