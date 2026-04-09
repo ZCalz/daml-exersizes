@@ -1,0 +1,15 @@
+module SortExample where
+
+import Daml.Script
+import DA.List
+
+sortList: Script ()
+sortList = script do
+    let 
+        x = [7,8,9]
+        y = ["bob", "alice"]
+        z = [[5,3,4], [1,2,3]]
+
+    debug $ sort x
+    debug $ length y
+    debug $ reverse z

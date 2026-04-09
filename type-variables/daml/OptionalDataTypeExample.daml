@@ -1,0 +1,24 @@
+module OptionalDataTypeExample where
+import Daml.Script
+
+-- data Optional a 
+--     = None
+--     | Some a
+--         deriving (Eq, Show)
+
+notSafeDiv: Int -> Int -> Int
+notSafeDiv x y = x / y
+
+safeDiv: Int -> Int -> Optional Int
+safeDiv _ 0 = None
+safeDiv x y = Some (x / y)
+
+testOptional : Script ()
+testOptional = script do
+
+-- Error: Division by zero
+    -- debug $ notSafeDiv 5 2 
+    -- debug $ notSafeDiv 5 0
+
+    debug $ safeDiv 5 2
+    debug $ safeDiv 5 0    
