@@ -1,0 +1,18 @@
+module FoldsAccumulator where
+
+import Daml.Script
+
+sumList: [Int] -> Int
+sumList x = foldl (+) 0 x
+
+listToText: [Int] -> Text
+listToText x = foldl (\acc y -> acc <> show y) "" x
+
+revserseListToText: [Int] -> Text
+revserseListToText x = foldr (\y acc -> acc <> show y) "" x
+
+testFolds: Script ()
+testFolds = script do
+    debug $ sumList [1..4]
+    debug $ listToText [1..4]
+    debug $ revserseListToText [1..4]

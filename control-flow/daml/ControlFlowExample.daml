@@ -1,0 +1,12 @@
+module ControlFlowExample where
+
+import Daml.Script
+ifOddOrEven: Int -> Text
+ifOddOrEven x = 
+    if (x % 2 == 0) then "even"
+    else "odd"
+  
+testOddOrEven: Script ()
+testOddOrEven = script do
+    debug $ ifOddOrEven 5
+    debug $ ifOddOrEven 10

@@ -1,0 +1,14 @@
+module ControlFlowExample4 where
+import Daml.Script
+
+someFunction: Int -> Either Text Int
+someFunction x =
+    if (x < 0) then
+        Left "Error"
+    else
+        Right (x + 2)
+
+testSomeFunction: Script () 
+testSomeFunction = script do
+    debug $ someFunction (-5)
+    debug $ someFunction 10

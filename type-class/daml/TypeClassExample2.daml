@@ -3,7 +3,7 @@ module TypeClassExample2 where
 import Daml.Script
 import DA.Text (sha256)
 
-class Encodable i o where
+class Encryptable i o where
     encrypt: i -> o
 
 data PersonalRecord = PersonalRecord with

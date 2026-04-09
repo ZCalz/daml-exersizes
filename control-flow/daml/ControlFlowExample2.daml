@@ -1,0 +1,15 @@
+module ControlFlowExample2 where
+import Daml.Script
+
+findBmi: Decimal -> Decimal -> Text
+findBmi height weight
+    | weight / (height ^ 2) <= 18.5 = "Underweight"
+    | weight / (height ^ 2) <= 25.0 = "Normal weight"
+    | weight / (height ^ 2) <= 30.0 = "Overweight"
+    | otherwise = "Obese"
+
+testFindBmi: Script ()
+testFindBmi = script do
+    debug $ findBmi 1.75 60.0
+    debug $ findBmi 1.75 70.0
+    debug $ findBmi 1.75 80.0

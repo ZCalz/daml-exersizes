@@ -1,0 +1,15 @@
+module ControlFlowExample3 where
+import Daml.Script
+
+caseEvenOrOdd: Int -> Text
+caseEvenOrOdd x = case (x%2) of
+    0 -> "even"
+    1 -> "odd"
+    _ -> "unexpected"
+
+testCaseEvenOrOdd: Script ()
+testCaseEvenOrOdd = script do
+    debug $ caseEvenOrOdd 5
+    debug $ caseEvenOrOdd 10    
+    debug $ caseEvenOrOdd (-3)
+    debug $ caseEvenOrOdd 0
