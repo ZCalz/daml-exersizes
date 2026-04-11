@@ -1,0 +1,37 @@
+module TestQueries where
+
+import Daml.Script
+import BankService
+
+testQueries : Script ()
+testQueries = script do
+    alice <- allocateParty "Alice"
+    bank <- allocateParty "Bank"
+    bob <- allocateParty "Bob"
+
+    aliceAccountCid <- submitMulti [alice, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 100.0
+
+    bobAccountCid <- submitMulti [bob, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = bob
+            balance = 50.0
+
+    [(cid, contract)] <- query @BankAccount alice
+    debug "Bank accounts visible for Alice"
+    debug cid
+    debug contract
+    debug "---------"
+
+    debug "Bob's account ID and payload"
+    bobList <- query @BankAccount bob
+    debug bobList
+    debug "---------"
+
+    debug "Visible bank accounts"
+    bankList <- query @BankAccount bank
+    debug bankList
