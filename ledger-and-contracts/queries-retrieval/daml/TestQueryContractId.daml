@@ -1,0 +1,41 @@
+module TestQueryContractId where
+
+import Daml.Script
+import BankService
+
+testQueries : Script ()
+testQueries = script do
+    bank <- allocateParty "bank"
+    alice <- allocateParty "Alice"
+    bob <- allocateParty "Bob"
+
+    aliceAccountCid <- submitMulti [bank, alice] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 100.0
+
+    bobAccountCid <- submitMulti [bank, bob] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = bob
+            balance = 50.0  
+ 
+
+    aliceAccount <- queryContractId alice aliceAccountCid
+    debug "Alice's account"
+    debug aliceAccount
+
+    account <- queryContractId bob aliceAccountCid
+    debug "Bob's view of Alice's account"
+    debug account
+
+    -- ADDED (Query with contract key)
+    aliceAccount <- queryContractKey @BankAccount alice (bank, alice)
+    debug "Alice's account"
+    debug aliceAccount
+
+    account <- queryContractKey @BankAccount bob (bank, alice)
+    debug "Bob's view of Alice's account"
+    debug account
+    ---------------------------------------

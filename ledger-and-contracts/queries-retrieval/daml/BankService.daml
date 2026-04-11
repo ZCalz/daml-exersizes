@@ -7,3 +7,9 @@ template BankAccount
         balance: Numeric 2
     where
         signatory bank, accountOwner
+
+        --- ADDED
+        ---------------------------------------
+        key (bank, accountOwner) : (Party, Party)
+        maintainer key._1
+        ---------------------------------------)
