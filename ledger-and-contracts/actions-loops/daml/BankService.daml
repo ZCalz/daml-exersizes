@@ -1,0 +1,10 @@
+module BankService where
+
+template BankAccount
+  with
+    bank : Party
+    accountOwner : Party
+    balance : Numeric 2
+  where
+    signatory bank, accountOwner
+
