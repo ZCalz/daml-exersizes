@@ -1,0 +1,14 @@
+module Applicative where
+
+import Daml.Script
+
+print: Script ()
+print = script do
+    let 
+        x = [(*0), (+100), (^2)] <*> [1,2,3]
+        y = [(*), (+)] <*> [1,2] <*> [3,4]
+        z = (*) <$> [1,2,3] <*> [1,2,3]
+
+    debug x
+    debug y
+    debug z
