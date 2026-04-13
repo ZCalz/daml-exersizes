@@ -1,0 +1,41 @@
+module TestActions2 where
+
+import Daml.Script
+import BankService
+-- import DA.Foldable
+
+testAction : Script [()]-- () return a list of tuples
+-- testAction : Script () 
+testAction = script do
+    alice <- allocateParty "Alice"
+    bob <- allocateParty "Bob"
+    bank <- allocateParty "Bank"
+
+    submitMulti [alice, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 100.0
+
+    submitMulti [alice, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 50.0  
+
+    submitMulti [bob, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = bob
+            balance = 75.0 
+
+
+    -- accountTuple <- query @BankAccount alice
+    -- debug accountTuple
+    -- query @BankAccount alice >>= debug
+
+    accounts <- query @BankAccount bank
+    mapA (\x -> debug x) accounts
+
+    -- mapA_ (\x -> debug x) accounts
+    -- return () 

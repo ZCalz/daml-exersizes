@@ -1,0 +1,62 @@
+--similar to a foreach loop
+module TestActions5ForA where
+
+import Daml.Script
+import BankService
+import DA.Foldable (forA_) -- added for forA_
+
+
+testForA_ : Script () 
+testForA_ = script do
+    alice <- allocateParty "Alice"
+    bob <- allocateParty "Bob"
+    bank <- allocateParty "Bank"
+
+    submitMulti [alice, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 100.0
+
+    submitMulti [alice, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 50.0  
+
+    submitMulti [bob, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = bob
+            balance = 75.0 
+
+    accounts <- query @BankAccount bank
+    forA_ accounts (\x -> debug x)
+
+
+testForA : Script [()] -- no underscore implementation returns a list of tuples
+testForA = script do
+    alice <- allocateParty "Alice"
+    bob <- allocateParty "Bob"
+    bank <- allocateParty "Bank"
+
+    submitMulti [alice, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 100.0
+
+    submitMulti [alice, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 50.0  
+
+    submitMulti [bob, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = bob
+            balance = 75.0 
+
+    accounts <- query @BankAccount bank
+    forA accounts (\x -> debug x)

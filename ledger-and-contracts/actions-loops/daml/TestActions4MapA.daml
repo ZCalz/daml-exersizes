@@ -1,0 +1,61 @@
+module TestActions4MapA where
+
+import Daml.Script
+import BankService
+import DA.Foldable (mapA_)-- added for mapA_
+
+-- testAction : Script [()]-- () return a list of tuples
+testMapA_ : Script () 
+testMapA_ = script do
+    alice <- allocateParty "Alice"
+    bob <- allocateParty "Bob"
+    bank <- allocateParty "Bank"
+
+    submitMulti [alice, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 100.0
+
+    submitMulti [alice, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 50.0  
+
+    submitMulti [bob, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = bob
+            balance = 75.0 
+
+    accounts <- query @BankAccount bank
+    mapA_ (\x -> debug x) accounts
+
+
+testMapA : Script [()] 
+testMapA = script do
+    alice <- allocateParty "Alice"
+    bob <- allocateParty "Bob"
+    bank <- allocateParty "Bank"
+
+    submitMulti [alice, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 100.0
+
+    submitMulti [alice, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = alice
+            balance = 50.0  
+
+    submitMulti [bob, bank] [] do
+        createCmd BankAccount with
+            bank
+            accountOwner = bob
+            balance = 75.0 
+
+    accounts <- query @BankAccount bank
+    mapA (\x -> debug x) accounts
